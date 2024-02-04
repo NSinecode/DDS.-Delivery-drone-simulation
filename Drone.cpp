@@ -4,7 +4,7 @@ Drone::Drone()
 {
 	Vel = Ax = { 0 };
 	CylinderSize = { 1,1,1 };
-	forvard = { { 0,1.5,0 }, { 0,0,90 } };
+	forvard = { { 0,2,0 }, { 0,0,90 } };
 	Rotation = { { 0,1,0 },LINELEN,0 };
 	PowerTimer = 0;
 

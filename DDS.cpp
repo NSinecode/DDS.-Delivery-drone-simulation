@@ -4,7 +4,7 @@
 #include "Drone.h"
 #include "LandScape.h"
 
-#define DEBUG
+//#define DEBUG
 
 //size is frontSize
 void DrawHUD(Drone other, int size);
