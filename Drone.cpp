@@ -46,6 +46,10 @@ float Drone::getRadius()
 {
 	return CylinderSize.x;
 }
+int Drone::getScore()
+{
+	return Score;
+}
 void Drone::setVel(Vector3 Vel)
 {
 	this->Vel = Vel;
@@ -65,6 +69,11 @@ void Drone::setForvard(Ray forvard)
 void Drone::setPowerRemaining(float PowerRemaining)
 {
 	this->PowerRemaining = PowerRemaining;
+}
+
+void Drone::ScoreUP()
+{
+	Score++;
 }
 
 void Drone::Draw()
@@ -104,7 +113,7 @@ void Drone::UpdateVel()
 {
 	// Y - movement
 	if (IsKeyPressed(UP) or IsKeyDown(UP))	Ax.y = ACCELERATIONY;
-	else if (IsKeyPressed(DOWN) or IsKeyDown(DOWN))	Ax.y = -ACCELERATIONY - ACCELERATIONGRV;
+	else if ((IsKeyPressed(DOWN) or IsKeyDown(DOWN)) && CanFlyDown)	Ax.y = -ACCELERATIONY - ACCELERATIONGRV;
 	else if (IsKeyUp(UP) or IsKeyUp(DOWN))
 	{
 		Ax.y = -Vel.y * STOPACC;
@@ -141,6 +150,34 @@ void Drone::UpdateVel()
 
 	
 	Vel = Vector3Add(Vel, Vector3Scale(Ax, GetFrameTime()));
+	if (!CanFlyDown && Vel.y < 0)	Vel.y = 0;
+}
+
+void Drone::InTarget()
+{
+	WasInTarget = 1;
+	CanFlyDown = 0;
+}
+
+void Drone::OnSpawn(int& currentTarget, int amount)
+{
+	//Charging
+	Charge();
+	//Check mission complete
+	if (WasInTarget)
+	{
+		WasInTarget = 0;
+		ScoreUP();
+		currentTarget++;
+		if (currentTarget > amount) currentTarget = 0;
+	}
+	
+	CanFlyDown = 0;
+}
+
+void Drone::InAir()
+{
+	CanFlyDown = 1;
 }
 
 void Drone::Kill()
@@ -148,6 +185,8 @@ void Drone::Kill()
 	forvard.position = { 0,1.5,0 };
 	Vel = { 0,0,0 };
 	Ax = { 0,0,0 };
+	WasInTarget = 0;
+	PowerTimer = GetTime();
 }
 
 void Drone::Charge()

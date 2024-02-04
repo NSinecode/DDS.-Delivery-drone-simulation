@@ -46,6 +46,7 @@ public:
 	float getPowerRemaining();
 	double getPowerTimer();
 	float getRadius();
+	int getScore();
 
 	//setters
 	void setVel(Vector3 Vel);
@@ -53,6 +54,8 @@ public:
 	void setCylinderSize(Vector3 CylinderSize);
 	void setForvard(Ray forvard);
 	void setPowerRemaining(float PowerRemaining);
+	//If drone has done task(spawn -> target -> spawn)
+	void ScoreUP();
 
 	//Draw drone
 	void Draw();
@@ -60,6 +63,9 @@ public:
 	//Drone movement
 	void UpdatePos();
 	void UpdateVel();
+	void InTarget();
+	void OnSpawn(int &currentTarget, int amount);
+	void InAir();
 
 	//Drone death
 	void Kill();
@@ -75,5 +81,7 @@ private:
 
 	float PowerRemaining;
 	double PowerTimer;
+	int Score = 0;
+	bool WasInTarget = 0, CanFlyDown = 1;
 };
 

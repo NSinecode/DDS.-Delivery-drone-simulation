@@ -6,6 +6,9 @@
 
 #define DEBUG
 
+//size is frontSize
+void DrawHUD(Drone other, int size);
+
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
@@ -46,19 +49,23 @@ int main(void)
         // Update
         //----------------------------------------------------------------------------------
         UpdateCamera(&camera, CAMERA_THIRD_PERSON);
+        //Set drone target
         camera.target = main.getForvard().position;
         camera.position = Vector3Add(camera.position, Vector3Scale(main.getVel(), GetFrameTime()));
 
         SetMousePosition(GetScreenWidth() / 2, GetScreenHeight() / 2);
 
-        //Update done
+        //Update drone
         main.UpdatePos();
+        //Update power
+        if ((int)(GetTime() - main.getPowerTimer()) > POWERTIME)    main.Kill();
         //Update collision
         city.CheckCollision(main);
 
         //Debug regenerate
 #ifdef DEBUG
         if (IsKeyPressed(KEY_R))    city.ReAutoGenBuildings(BUILDINGS_COUNT);
+        if (IsKeyPressed(KEY_T))    city.ChangeTarget();
 #endif // DEBUG
 
         
@@ -85,9 +92,7 @@ int main(void)
 
             EndMode3D();
 
-            DrawText(std::to_string((int)(GetTime() - main.getPowerTimer())).c_str(), GetScreenWidth()/2 - MeasureText(std::to_string((int)(GetTime() - main.getPowerTimer())).c_str(), 40)/2, 90, 40, DARKGRAY);
-
-            DrawFPS(10, 30);
+            DrawHUD(main, 20);
 
 #ifdef DEBUG
                 DrawText(std::to_string(main.getForvard().position.y).c_str(), 10, 60, 20, GREEN);
@@ -106,4 +111,17 @@ int main(void)
     //--------------------------------------------------------------------------------------
 
     return 0;
+}
+
+void DrawHUD(Drone other, int size)
+{
+    //Draw FPS
+    DrawFPS(10, 30);
+    
+    int width = MeasureText("Power remaining: 100", size) + size;
+    DrawRectangle(GetScreenWidth() - width, 0, width, 4.5 * size, { 130, 130, 130, 220 });
+
+    //Drawing text
+    DrawText(("Score: " + std::to_string(other.getScore())).c_str(), GetScreenWidth() - width + size / 2, 1.5 * size, size, GREEN);
+    DrawText(("Power remaining: " + std::to_string(POWERTIME - (int)(GetTime() - other.getPowerTimer()))).c_str(), GetScreenWidth() - width + size / 2, 3 * size, size, GREEN);
 }

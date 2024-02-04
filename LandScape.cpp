@@ -7,9 +7,9 @@ LandScape::LandScape()
 	Roof = LoadTexture("Resources/roof.png");
 
 	//Adding constant startpoint
-	StartPoint = { {-1,0,-1},{1,1,1} };
+	StartPoint = { {-SPAWN_SIZE,0,-SPAWN_SIZE},{SPAWN_SIZE,1,SPAWN_SIZE} };
 	//Undefined target
-	Target = { {FIELD_SIZE,0,FIELD_SIZE},{FIELD_SIZE,0,FIELD_SIZE} };
+	Target.push_back({ {FIELD_SIZE,0,FIELD_SIZE},{FIELD_SIZE,0,FIELD_SIZE} });
 
 	//Adding ground
 	DeathBlock.push_back({ {-FIELD_SIZE,0,-FIELD_SIZE},{FIELD_SIZE,0,FIELD_SIZE} });
@@ -29,9 +29,14 @@ LandScape::~LandScape()
 void LandScape::AutoGenBuildings(int amount)
 {
 	//Generate target
-	Vector3 minT = { GetRandomValue(-FIELD_SIZE, FIELD_SIZE - TARGET_SIZE),0,GetRandomValue(-FIELD_SIZE, FIELD_SIZE - TARGET_SIZE) };
-	Target = { minT, { minT.x + TARGET_SIZE,1, minT.z + TARGET_SIZE } };
+	Target.clear();
+	for (int i = 0; i < MAX_AMOUNT_OF_TARGETS; i++)
+	{
+		Vector3 minT = { GetRandomValue(-FIELD_SIZE, FIELD_SIZE - TARGET_SIZE),0,GetRandomValue(-FIELD_SIZE, FIELD_SIZE - TARGET_SIZE) };
+		Target.push_back({ minT, { minT.x + TARGET_SIZE,1, minT.z + TARGET_SIZE } });
+	}
 
+	bool TargetCollisions;
 	//Generate new houses
 	for (int i = 0; i < amount; i++)
 	{
@@ -42,8 +47,10 @@ void LandScape::AutoGenBuildings(int amount)
 		{
 			min = { (float)GetRandomValue(-FIELD_SIZE, FIELD_SIZE - MAX_BUILDING_SIZE),0,(float)GetRandomValue(-FIELD_SIZE, FIELD_SIZE - MAX_BUILDING_SIZE) };
 			max = { min.x + (float)GetRandomValue(MIN_BUILDING_SIZE * 10, MAX_BUILDING_SIZE * 10) / 10, (float)GetRandomValue(MIN_BUILDING_HEIGHT * 10, MAX_BUILDING_HEIGHT * 10) / 10, min.z + (float)GetRandomValue(MIN_BUILDING_SIZE * 10, MAX_BUILDING_SIZE * 10) / 10 };
-
-		} while (CheckCollisionBoxes(Target, {min,max}) or CheckCollisionBoxes({ min,max }, StartPoint));
+			
+			TargetCollisions = 0;
+			for (int i = 0; i < MAX_AMOUNT_OF_TARGETS; i++)		TargetCollisions += CheckCollisionBoxes({ min,max }, Target[i]);
+		} while (TargetCollisions or CheckCollisionBoxes({ min,max }, StartPoint));
 
 		//Add building
 		DeathBlock.push_back({ min,max });
@@ -93,17 +100,29 @@ void LandScape::ReAutoGenBuildings(int amount)
 	AutoGenBuildings(amount);
 }
 
+void LandScape::ChangeTarget()
+{
+	CurrentTarget++;
+	if (CurrentTarget == MAX_AMOUNT_OF_TARGETS)		CurrentTarget = 0;
+}
+
 void LandScape::Draw()
 {
 	for (int i = 0; i < DeathModel.size(); i++)		DrawModel(DeathModel[i], BoxCenter(DeathBlock[i]), 1, WHITE);
 
 	DrawBoundingBox(StartPoint, DARKGREEN);
-	DrawBoundingBox(Target, RED);
+	DrawBoundingBox(Target[CurrentTarget], RED);
 }
 
 void LandScape::CheckCollision(Drone& other)
 {
+	//Collisions with buildings
 	for (int i = 0; i < DeathBlock.size(); i++)	if (CheckCollisionBoxSphere(DeathBlock[i], other.getForvard().position, other.getRadius()))	other.Kill();
+	//Collision with spawn
+	if (CheckCollisionBoxSphere(StartPoint, other.getForvard().position, other.getRadius()))	other.OnSpawn(CurrentTarget, MAX_AMOUNT_OF_TARGETS);
+	//Collision with target
+	else if (CheckCollisionBoxSphere(Target[CurrentTarget], other.getForvard().position, other.getRadius()))	other.InTarget();
+	else other.InAir();
 }
 
 std::vector<BoundingBox> LandScape::getDeathBlock()

@@ -1,2 +1,20 @@
 ﻿  DDS.cpp
+C:\Users\prikh\source\repos\Delivery drone simulation\DDS.cpp(122,59): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\prikh\source\repos\Delivery drone simulation\DDS.cpp(125,111): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+  Drone.cpp
+C:\Users\prikh\source\repos\Delivery drone simulation\Drone.cpp(116,105): warning C4305: =: усечение из "double" в "float"
+  LandScape.cpp
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(26,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(35,34): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(35,34): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(35,90): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(35,90): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(52,53): warning C4804: +=: небезопасное использование типа "bool" в операции
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(61,16): warning C4305: +=: усечение из "double" в "float"
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(71,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(79,30): warning C4305: +=: усечение из "double" в "float"
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(94,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(111,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(120,20): warning C4018: <: несоответствие типов со знаком и без знака
+  Создание кода...
   Delivery drone simulation.vcxproj -> C:\Users\prikh\source\repos\Delivery drone simulation\Debug\Delivery drone simulation.exe
