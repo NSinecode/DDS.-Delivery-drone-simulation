@@ -37,5 +37,8 @@
     <None Include=".gitignore">
       <Filter>Файлы ресурсов</Filter>
     </None>
+    <None Include="README.md">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
   </ItemGroup>
 </Project>

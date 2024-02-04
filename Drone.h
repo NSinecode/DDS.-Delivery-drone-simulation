@@ -45,6 +45,7 @@ public:
 	PolarVector2 getRotation();
 	float getPowerRemaining();
 	double getPowerTimer();
+	float getRadius();
 
 	//setters
 	void setVel(Vector3 Vel);

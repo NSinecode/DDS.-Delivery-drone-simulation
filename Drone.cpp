@@ -42,6 +42,10 @@ double Drone::getPowerTimer()
 {
 	return PowerTimer;
 }
+float Drone::getRadius()
+{
+	return CylinderSize.x;
+}
 void Drone::setVel(Vector3 Vel)
 {
 	this->Vel = Vel;
@@ -142,6 +146,8 @@ void Drone::UpdateVel()
 void Drone::Kill()
 {
 	forvard.position = { 0,1.5,0 };
+	Vel = { 0,0,0 };
+	Ax = { 0,0,0 };
 }
 
 void Drone::Charge()

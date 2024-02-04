@@ -28,14 +28,16 @@ int main(void)
     camera.fovy = 45.0f;                                    // Camera field-of-view Y
     camera.projection = CAMERA_PERSPECTIVE;                 // Camera projection type
 
+    //Add drone
     Drone main;
 
+    //Randomly generate buildings
     LandScape city;
-
     city.AutoGenBuildings(BUILDINGS_COUNT);
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
+    //For camera movement
     HideCursor();
 
     // Main game loop
@@ -45,10 +47,21 @@ int main(void)
         //----------------------------------------------------------------------------------
         UpdateCamera(&camera, CAMERA_THIRD_PERSON);
         camera.target = main.getForvard().position;
+        camera.position = Vector3Add(camera.position, Vector3Scale(main.getVel(), GetFrameTime()));
+
         SetMousePosition(GetScreenWidth() / 2, GetScreenHeight() / 2);
 
+        //Update done
         main.UpdatePos();
+        //Update collision
+        city.CheckCollision(main);
 
+        //Debug regenerate
+#ifdef DEBUG
+        if (IsKeyPressed(KEY_R))    city.ReAutoGenBuildings(BUILDINGS_COUNT);
+#endif // DEBUG
+
+        
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
@@ -64,9 +77,11 @@ int main(void)
                 //Draw landscape
                 city.Draw();
 
+#ifdef DEBUG
                 DrawGrid(20, 1.0f);
                 DrawLine3D({ -10,0,0 }, { 10,0,0 }, PURPLE);
                 DrawLine3D({ 0,-10,0 }, { 0,10,0 }, GREEN);
+#endif // DEBUG
 
             EndMode3D();
 
