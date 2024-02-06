@@ -1,3 +1,4 @@
 C:\Users\prikh\source\repos\Delivery drone simulation\Debug\Delivery drone simulation.vcxproj.CopyComplete
 C:\Users\prikh\source\repos\Delivery drone simulation\Debug\Delivery drone simulation.exe
 C:\Users\prikh\source\repos\Delivery drone simulation\Debug\raylib.dll
+C:\Users\prikh\source\repos\Delivery drone simulation\Debug\libzmq-mt-gd-4_3_5.dll

@@ -1,7 +1,10 @@
 #pragma once
 #include <cmath>
+#include <string>
+
 #include "raylib.h"
 #include "raymath.h"
+#include "pystream.h"
 
 //Keys
 #define FORVARD	KEY_KP_5
@@ -21,6 +24,7 @@
 //Misc
 #define LINELEN			20		// Misc
 #define POWERTIME		200		// Time,  drone can fly without charge
+#define HITBOX_MODE
 
 struct PolarVector2
 {
@@ -43,7 +47,6 @@ public:
 	Vector3 getCylinderSize();
 	Ray getForvard();
 	PolarVector2 getRotation();
-	float getPowerRemaining();
 	double getPowerTimer();
 	float getRadius();
 	int getScore();
@@ -53,7 +56,6 @@ public:
 	void setAx(Vector3 Ax);
 	void setCylinderSize(Vector3 CylinderSize);
 	void setForvard(Ray forvard);
-	void setPowerRemaining(float PowerRemaining);
 	//If drone has done task(spawn -> target -> spawn)
 	void ScoreUP();
 
@@ -73,13 +75,17 @@ public:
 	//Drone power
 	void Charge();
 
+	//For pystream & ai learning
+	
 
 private:
+	Model quadrocopter;
+	Texture2D carbon;
+	
 	Vector3 Vel, Ax, CylinderSize;
 	Ray forvard;
 	PolarVector2 Rotation;
 
-	float PowerRemaining;
 	double PowerTimer;
 	int Score = 0;
 	bool WasInTarget = 0, CanFlyDown = 1;

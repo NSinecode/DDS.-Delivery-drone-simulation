@@ -143,10 +143,12 @@
     <ClCompile Include="DDS.cpp" />
     <ClCompile Include="Drone.cpp" />
     <ClCompile Include="LandScape.cpp" />
+    <ClCompile Include="pystream.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drone.h" />
     <ClInclude Include="LandScape.h" />
+    <ClInclude Include="pystream.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

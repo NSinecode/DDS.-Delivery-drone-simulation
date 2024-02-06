@@ -24,12 +24,18 @@
     <ClCompile Include="LandScape.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
+    <ClCompile Include="pystream.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drone.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="LandScape.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="pystream.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,11 +1,30 @@
 ﻿  DDS.cpp
-C:\Users\prikh\source\repos\Delivery drone simulation\DDS.cpp(122,59): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\prikh\source\repos\Delivery drone simulation\DDS.cpp(125,111): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\prikh\source\repos\Delivery drone simulation\DDS.cpp(141,59): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\prikh\source\repos\Delivery drone simulation\DDS.cpp(144,111): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
   Drone.cpp
-C:\Users\prikh\source\repos\Delivery drone simulation\Drone.cpp(116,105): warning C4305: =: усечение из "double" в "float"
+C:\Users\prikh\source\repos\Delivery drone simulation\Drone.cpp(119,105): warning C4305: =: усечение из "double" в "float"
+  LandScape.cpp
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(26,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(35,34): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(35,34): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(35,90): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(35,90): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(52,53): warning C4804: +=: небезопасное использование типа "bool" в операции
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(61,16): warning C4305: +=: усечение из "double" в "float"
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(71,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(79,30): warning C4305: +=: усечение из "double" в "float"
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(94,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(114,34): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(114,34): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(114,90): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(114,90): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(126,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\prikh\source\repos\Delivery drone simulation\LandScape.cpp(135,20): warning C4018: <: несоответствие типов со знаком и без знака
+  pystream.cpp
   Создание кода
-  74 of 222 functions (33.3%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    27 functions had inline decision re-evaluated but remain unchanged
+  Compiler switch has changed, fall back to full compilation.
+  All 226 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Создание кода завершено
   Delivery drone simulation.vcxproj -> C:\Users\prikh\source\repos\Delivery drone simulation\Release\Delivery drone simulation.exe
+  "pwsh.exe" не является внутренней или внешней
+  командой, исполняемой программой или пакетным файлом.

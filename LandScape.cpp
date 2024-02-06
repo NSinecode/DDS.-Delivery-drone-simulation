@@ -106,6 +106,21 @@ void LandScape::ChangeTarget()
 	if (CurrentTarget == MAX_AMOUNT_OF_TARGETS)		CurrentTarget = 0;
 }
 
+void LandScape::AutoGenTarget()
+{
+	Target.clear();
+	for (int i = 0; i < MAX_AMOUNT_OF_TARGETS; i++)
+	{
+		Vector3 minT = { GetRandomValue(-FIELD_SIZE, FIELD_SIZE - TARGET_SIZE),0,GetRandomValue(-FIELD_SIZE, FIELD_SIZE - TARGET_SIZE) };
+		Target.push_back({ minT, { minT.x + TARGET_SIZE,1, minT.z + TARGET_SIZE } });
+	}
+}
+
+BoundingBox LandScape::getCurrentTarget()
+{
+	return Target[CurrentTarget];
+}
+
 void LandScape::Draw()
 {
 	for (int i = 0; i < DeathModel.size(); i++)		DrawModel(DeathModel[i], BoxCenter(DeathBlock[i]), 1, WHITE);
@@ -138,4 +153,16 @@ Mesh LoadMeshFromCube(BoundingBox other)
 Vector3 BoxCenter(BoundingBox other)
 {
 	return { other.max.x - (other.max.x - other.min.x) / 2,other.min.y + (other.max.y - other.min.y) / 2,other.max.z - (other.max.z - other.min.z) / 2 };
+}
+
+std::string AiData2D(Drone other, LandScape city)
+{
+	std::string data;
+
+	//Adding drone pos
+	data += to_string(Vec3toVec2(other.getForvard().position));
+	//Adding target pos
+	//data += to_string(Vec3toVec2(BoxCenter(city.getCurrentTarget())));
+
+	return data;
 }

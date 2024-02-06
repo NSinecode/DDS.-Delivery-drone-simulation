@@ -2,6 +2,11 @@
 
 Drone::Drone()
 {
+	//Loading quad model
+	/*quadrocopter = LoadModel("Resources/quadcopter.obj");
+	carbon = LoadTexture("Resources/carbon.png");
+	quadrocopter.materials[0].maps[0].texture = carbon;*/
+
 	Vel = Ax = { 0 };
 	CylinderSize = { 1,1,1 };
 	forvard = { { 0,2,0 }, { 0,0,90 } };
@@ -12,6 +17,8 @@ Drone::Drone()
 
 Drone::~Drone()
 {
+	//UnloadTexture(carbon);
+	//UnloadModel(quadrocopter);
 }
 
 Vector3 Drone::getVel()
@@ -33,10 +40,6 @@ Ray Drone::getForvard()
 PolarVector2 Drone::getRotation()
 {
 	return Rotation;
-}
-float Drone::getPowerRemaining()
-{
-	return PowerRemaining;
 }
 double Drone::getPowerTimer()
 {
@@ -66,10 +69,6 @@ void Drone::setForvard(Ray forvard)
 {
 	this->forvard = forvard;
 }
-void Drone::setPowerRemaining(float PowerRemaining)
-{
-	this->PowerRemaining = PowerRemaining;
-}
 
 void Drone::ScoreUP()
 {
@@ -78,7 +77,11 @@ void Drone::ScoreUP()
 
 void Drone::Draw()
 {
-	DrawSphere(forvard.position, CylinderSize.x, BLUE);
+#ifdef HITBOX_MODE
+	DrawSphere(forvard.position, CylinderSize.x, { 0, 121, 241, 127 });
+#endif // HITBOX_MODE
+	//Model
+	//DrawModel(quadrocopter, forvard.position, 0.01, WHITE);
 
 	//DrawRay(forvard, DARKBLUE);
 	DrawLine3D(forvard.position, Polar_to_Decard(Rotation), DARKBLUE);
@@ -182,11 +185,12 @@ void Drone::InAir()
 
 void Drone::Kill()
 {
-	forvard.position = { 0,1.5,0 };
+	forvard.position = { 0,2,0 };
 	Vel = { 0,0,0 };
 	Ax = { 0,0,0 };
 	WasInTarget = 0;
 	PowerTimer = GetTime();
+	Score = 0;
 }
 
 void Drone::Charge()

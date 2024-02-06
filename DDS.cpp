@@ -3,8 +3,10 @@
 #include "raylib.h"
 #include "Drone.h"
 #include "LandScape.h"
+#include "pystream.h"
 
-//#define DEBUG
+#define DEBUG
+#define AI_LEARNING_MODE
 
 //size is frontSize
 void DrawHUD(Drone other, int size);
@@ -12,7 +14,7 @@ void DrawHUD(Drone other, int size);
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
-int main(void)
+int main()
 {
     // Initialization
     //--------------------------------------------------------------------------------------
@@ -36,7 +38,15 @@ int main(void)
 
     //Randomly generate buildings
     LandScape city;
+    int timer = 5;
+
+#ifndef AI_LEARNING_MODE
     city.AutoGenBuildings(BUILDINGS_COUNT);
+#else
+    city.AutoGenTarget();
+#endif // !AI_LEARNING_MODE
+
+
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
@@ -62,9 +72,18 @@ int main(void)
         //Update collision
         city.CheckCollision(main);
 
+#ifdef AI_LEARNING_MODE
+        //if (GetTime() >= timer) { SendRecieveData(to_string((Vector2){ main.getForvard().position.x,main.getForvard().position.z })); timer++;}
+#endif // AI_LEARNING_MODE
+
+
         //Debug regenerate
 #ifdef DEBUG
+#ifndef AI_LEARNING_MODE
         if (IsKeyPressed(KEY_R))    city.ReAutoGenBuildings(BUILDINGS_COUNT);
+#else
+        if (IsKeyPressed(KEY_R))    city.AutoGenTarget();
+#endif // !AI_LEARNING_MODE
         if (IsKeyPressed(KEY_T))    city.ChangeTarget();
 #endif // DEBUG
 
@@ -95,11 +114,11 @@ int main(void)
             DrawHUD(main, 20);
 
 #ifdef DEBUG
-                DrawText(std::to_string(main.getForvard().position.y).c_str(), 10, 60, 20, GREEN);
-                DrawText(std::to_string(main.getAx().y).c_str(), 10, 90, 20, GREEN);
-                DrawText(std::to_string(main.getVel().y).c_str(), 10, 120, 20, GREEN);
+                //DrawText(std::to_string(main.getForvard().position.y).c_str(), 10, 60, 20, GREEN);
+                DrawText(std::to_string(timer).c_str(), 10, 90, 20, GREEN);
+                //DrawText(std::to_string(main.getVel().y).c_str(), 10, 120, 20, GREEN);
 
-                DrawText(std::to_string(main.getRotation().fi).c_str(), 10, 160, 20, GREEN);
+                //DrawText(std::to_string(main.getRotation().fi).c_str(), 10, 160, 20, GREEN);
                 //DrawText(std::to_string(main.getForvard().direction.z).c_str(), 10, 190, 20, GREEN);
 #endif // DEBUG
 
