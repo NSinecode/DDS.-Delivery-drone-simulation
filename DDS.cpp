@@ -6,7 +6,7 @@
 #include "pystream.h"
 
 #define DEBUG
-#define AI_LEARNING_MODE
+//#define AI_LEARNING_MODE
 
 //size is frontSize
 void DrawHUD(Drone other, int size);
@@ -38,8 +38,7 @@ int main()
 
     //Randomly generate buildings
     LandScape city;
-    int timer = 5;
-
+    //int timer = 5;
 #ifndef AI_LEARNING_MODE
     city.AutoGenBuildings(BUILDINGS_COUNT);
 #else
@@ -138,9 +137,14 @@ void DrawHUD(Drone other, int size)
     DrawFPS(10, 30);
     
     int width = MeasureText("Power remaining: 100", size) + size;
-    DrawRectangle(GetScreenWidth() - width, 0, width, 4.5 * size, { 130, 130, 130, 220 });
+    DrawRectangle(GetScreenWidth() - width, 0, width, 4.5 * size + width, { 130, 130, 130, 220 });
 
     //Drawing text
     DrawText(("Score: " + std::to_string(other.getScore())).c_str(), GetScreenWidth() - width + size / 2, 1.5 * size, size, GREEN);
     DrawText(("Power remaining: " + std::to_string(POWERTIME - (int)(GetTime() - other.getPowerTimer()))).c_str(), GetScreenWidth() - width + size / 2, 3 * size, size, GREEN);
+
+    //Drawing radar
+    float radius = width / 2 - size / 2;
+    DrawCircle(GetScreenWidth() - width/2, 4 * size + width / 2 + size / 2, radius, { 80, 80, 80, 220 });
+    DrawCircle(GetScreenWidth() - width / 2 + (radius - size / 2) * cos(other.getRotation().fi), 4 * size + width / 2 + size / 2 - (radius - size / 2) * sin(other.getRotation().fi), size / 2, GREEN);
 }

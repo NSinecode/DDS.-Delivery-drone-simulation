@@ -22,6 +22,7 @@ LandScape::~LandScape()
 	UnloadTexture(Buildings);
 	UnloadTexture(Ground);
 	UnloadTexture(Roof);
+	UnloadTexture(Minimap);
 
 	for (int i = 0; i < DeathModel.size(); i++)	UnloadModel(DeathModel[i]);
 }
@@ -35,6 +36,8 @@ void LandScape::AutoGenBuildings(int amount)
 		Vector3 minT = { GetRandomValue(-FIELD_SIZE, FIELD_SIZE - TARGET_SIZE),0,GetRandomValue(-FIELD_SIZE, FIELD_SIZE - TARGET_SIZE) };
 		Target.push_back({ minT, { minT.x + TARGET_SIZE,1, minT.z + TARGET_SIZE } });
 	}
+	//Draw it on minimap & create it
+	
 
 	bool TargetCollisions;
 	//Generate new houses

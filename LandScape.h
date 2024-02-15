@@ -52,6 +52,8 @@ private:
 	std::vector<BoundingBox> DeathBlock, Target;
 	std::vector<Model> DeathModel;
 
+	Texture2D Minimap = { 0 };
+
 	BoundingBox StartPoint;
 
 	Texture2D Ground, Buildings, Roof;
